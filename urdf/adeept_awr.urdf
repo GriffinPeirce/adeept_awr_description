@@ -1,5 +1,42 @@
 <?xml version="1.0"?>
 <robot name="adeept_awr">
+	<link name="chassis">
+		<origin xyz = "0.0 0.0 0.055"/>
+		<visual>
+			<geometry>
+				<box size = "0.13 0.12 0.08"/>
+			</geometry>
+		</visual>
+		<collision>
+			<geometry>
+				<box size = "0.13 0.12 0.08"/>
+			</geometry>
+		</collision>
+		<inertial>
+			<origin xyz="0.0 0.0125 0.0"/>
+			<mass value="0.500"/>
+			<inertia ixx="0.00009435" ixy="0.0" ixz="0" iyy="0.00001117" iyz="0.0" izz="0.0000148"/>
+		</inertial>
+	</link>
+	<link name="front_left_wheel">
+		<visual>
+			<origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
+			<geometry>
+				<cylinder radius="0.0325" length="0.025"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
+			<geometry>
+				<cylinder radius="0.0325" length="0.025"/>
+			</geometry>
+		</collision>
+		<inertial>
+			<origin xyz="0.0 0.0125 0.0"/>
+			<mass value="0.03"/>
+			<inertia ixx="0.00001044" ixy="0.0" ixz="0" iyy="0.00001767" iyz="0.0" izz="0.00001044"/>
+		</inertial>
+	</link>
 	<link name="front_right_wheel">
 		<visual>
 			<origin xyz="0.0 -0.0125 0.0" rpy="1.5708 0 0"/>
@@ -19,12 +56,6 @@
 			<inertia ixx="0.00001044" ixy="0.0" ixz="0" iyy="0.00001767" iyz="0.0" izz="0.00001044"/>
 		</inertial>
 	</link>
-	<joint name = "front_right_axle" type="continuous">
-		<parent link = "chassis"/>
-		<child link = "front_right_wheel"/>
-		<origin xyz = "0.03 -0.06 -0.02"/>
-		<axis xyz = "0 1 0" />
-	</joint>
 	<link name="rear_left_wheel">
 		<visual>
 			<origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
@@ -81,41 +112,25 @@
 		<origin xyz = "0.03 0.06 -0.02"/>
 		<axis xyz = "0 1 0" />
 	</joint>
-	<link name="front_left_wheel">
-		<visual>
-			<origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
-			<geometry>
-				<cylinder radius="0.0325" length="0.025"/>
-			</geometry>
-		</visual>
-		<collision>
-			<origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
-			<geometry>
-				<cylinder radius="0.0325" length="0.025"/>
-			</geometry>
-		</collision>
-		<inertial>
-			<origin xyz="0.0 0.0125 0.0"/>
-			<mass value="0.03"/>
-			<inertia ixx="0.00001044" ixy="0.0" ixz="0" iyy="0.00001767" iyz="0.0" izz="0.00001044"/>
-		</inertial>
-	</link>
-		<link name="chassis">
-		<origin xyz = "0.0 0.0 0.055"/>
-		<visual>
-			<geometry>
-				<box size = "0.13 0.12 0.08"/>
-			</geometry>
-		</visual>
-		<collision>
-			<geometry>
-				<box size = "0.13 0.12 0.08"/>
-			</geometry>
-		</collision>
-		<inertial>
-			<origin xyz="0.0 0.0125 0.0"/>
-			<mass value="0.500"/>
-			<inertia ixx="0.00009435" ixy="0.0" ixz="0" iyy="0.00001117" iyz="0.0" izz="0.0000148"/>
-		</inertial>
-	</link>
+	<joint name = "front_right_axle" type="continuous">
+		<parent link = "chassis"/>
+		<child link = "front_right_wheel"/>
+		<origin xyz = "0.03 -0.06 -0.02"/>
+		<axis xyz = "0 1 0" />
+	</joint>
+	<gazebo>
+  		<plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+		    <updateRate>30.0</updateRate>
+		    <leftFrontJoint>front_left_axle</leftFrontJoint>
+		    <rightFrontJoint>front_right_axle</rightFrontJoint>
+		    <leftRearJoint>rear_left_axle</leftRearJoint>
+		    <rightRearJoint>rear_right_axle</rightRearJoint>
+		    <wheelSeparation>0.082</wheelSeparation>
+		    <wheelDiameter>0.065</wheelDiameter>
+		    <robotBaseFrame>chassis</robotBaseFrame>
+		    <torque>0.0784532</torque>
+		    <topicName>cmd_vel</topicName>
+		    <broadcastTF>true</broadcastTF>
+  		</plugin>
+	</gazebo>
 </robot>
