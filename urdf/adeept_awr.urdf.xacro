@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="adeept_awr">
+  <!-- Variables for chassis -->
+  <xacro:property name="c_len_x" value="0.13"/>
+  <xacro:property name="c_len_y" value="0.12"/>
+  <xacro:property name="c_len_z" value="0.08"/>
+  <xacro:property name="c_mass" value="0.5"/>
+  <link name="chassis">
+    <origin xyz="0.0 0.0 0.055"/>
+    <visual>
+      <geometry>
+        <box size="${c_len_x} ${c_len_y} ${c_len_z}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${c_len_x} ${c_len_y} ${c_len_z}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0 0.0 0.0"/>
+      <mass value="${c_mass}"/>
+      <inertia ixx="${(c_mass/12) * (c_len_y*c_len_y + c_len_z*c_len_z)}" ixy="0.0" ixz="0" iyy="${(c_mass/12) * (c_len_x*c_len_x + c_len_z*c_len_z)}" iyz="0.0" izz="${(c_mass/12) * (c_len_y*c_len_y + c_len_x*c_len_x)}"/>
+    </inertial>
+  </link>
+
+  <!-- Variables for battery -->
+  <xacro:property name="b_len_x" value="0.145"/>
+  <xacro:property name="b_len_y" value="0.065"/>
+  <xacro:property name="b_len_z" value="0.015"/>
+  <xacro:property name="b_mass" value="0.23"/>
+  <link name="battery">
+    <origin xyz="0.0 0.0 0.0"/>
+    <visual>
+      <geometry>
+        <box size="${b_len_x} ${b_len_y} ${b_len_z}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${b_len_x} ${b_len_y} ${b_len_z}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0 0.0 0.0"/>
+      <mass value="${b_mass}"/>
+      <inertia ixx="${(b_mass/12) * (b_len_y*b_len_y + b_len_z*b_len_z)}" ixy="0.0" ixz="0" iyy="${(b_mass/12) * (b_len_x*b_len_x + b_len_z*b_len_z)}" iyz="0.0" izz="${(b_mass/12) * (b_len_y*b_len_y + b_len_x*b_len_x)}"/>
+    </inertial>
+  </link>
+
+  <!-- Variables for wheels -->
+  <xacro:property name="w_rad" value="0.0325"/>
+  <xacro:property name="w_len" value="0.025"/>
+  <xacro:property name="w_mass" value="0.03"/>
+  <link name="front_left_wheel">
+    <visual>
+      <origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0 0.0125 0.0"/>
+      <mass value="${w_mass}"/>
+      <inertia ixx="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}" ixy="0.0" ixz="0" iyy="${(w_mass/2) * (w_rad*w_rad)}" iyz="0.0" izz="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}"/>
+    </inertial>
+  </link>
+  <link name="front_right_wheel">
+    <visual>
+      <origin xyz="0.0 -0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 -0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0 -0.0125 0.0"/>
+      <mass value="${w_mass}"/>
+      <inertia ixx="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}" ixy="0.0" ixz="0" iyy="${(w_mass/2) * (w_rad*w_rad)}" iyz="0.0" izz="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}"/>
+    </inertial>
+  </link>
+  <link name="rear_left_wheel">
+    <visual>
+      <origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0 0.0125 0.0"/>
+      <mass value="${w_mass}"/>
+      <inertia ixx="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}" ixy="0.0" ixz="0" iyy="${(w_mass/2) * (w_rad*w_rad)}" iyz="0.0" izz="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}"/>
+    </inertial>
+  </link>
+  <link name="rear_right_wheel">
+    <visual>
+      <origin xyz="0.0 -0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 -0.0125 0.0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="${w_rad}" length="${w_len}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0 -0.0125 0.0"/>
+      <mass value="${w_mass}"/>
+      <inertia ixx="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}" ixy="0.0" ixz="0" iyy="${(w_mass/2) * (w_rad*w_rad)}" iyz="0.0" izz="${(w_mass/12) * (3*w_rad*w_rad + w_len*w_len)}"/>
+    </inertial>
+  </link>
+  <joint name="battery_mount" type="fixed">
+    <parent link="chassis"/>
+    <child link="battery"/>
+    <origin xyz="0.015 0.0 0.0475"/>
+  </joint>
+  <joint name="rear_right_axle" type="continuous">
+    <parent link="chassis"/>
+    <child link="rear_right_wheel"/>
+    <origin xyz="-0.05 -0.06 -0.02"/>
+    <axis xyz="0 1 0" />
+    <limit effort="0.0784532" velocity="1.55"/>
+    <dynamics friction="0.04"/>
+  </joint>
+  <joint name="rear_left_axle" type="continuous">
+    <parent link="chassis"/>
+    <child link="rear_left_wheel"/>
+    <origin xyz="-0.05 0.06 -0.02"/>
+    <axis xyz="0 1 0" />
+    <limit effort="0.0784532" velocity="1.55"/>
+    <dynamics friction="0.04"/>
+  </joint>
+  <joint name="front_left_axle" type="continuous">
+    <parent link="chassis"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0.03 0.06 -0.02"/>
+    <axis xyz="0 1 0" />
+    <limit effort="0.0784532" velocity="1.55"/>
+    <dynamics friction="0.04"/>
+  </joint>
+  <joint name="front_right_axle" type="continuous">
+    <parent link="chassis"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0.03 -0.06 -0.02"/>
+    <axis xyz="0 1 0" />
+    <limit effort="0.0784532" velocity="1.55"/>
+    <dynamics friction="0.04"/>
+  </joint>
+
+  <gazebo reference="front_right_wheel">
+    <mu1>0.8693</mu1>
+    <mu2>0.8693</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="front_left_wheel">
+    <mu1>0.8693</mu1>
+    <mu2>0.8693</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="rear_right_wheel">
+    <mu1>0.8693</mu1>
+    <mu2>0.8693</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="rear_left_wheel">
+    <mu1>0.8693</mu1>
+    <mu2>0.8693</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo>
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+      <updateRate>30.0</updateRate>
+      <leftFrontJoint>front_left_axle</leftFrontJoint>
+      <rightFrontJoint>front_right_axle</rightFrontJoint>
+      <leftRearJoint>rear_left_axle</leftRearJoint>
+      <rightRearJoint>rear_right_axle</rightRearJoint>
+      <wheelSeparation>0.150</wheelSeparation>
+      <wheelDiameter>0.065</wheelDiameter>
+      <robotBaseFrame>chassis</robotBaseFrame>
+      <torque>0.0784532</torque>
+      <topicName>cmd_vel</topicName>
+      <broadcastTF>false</broadcastTF>
+    </plugin>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <jointName>front_left_axle,front_right_axle,rear_left_axle,rear_right_axle</jointName>
+      <updateRate>30.0</updateRate>
+      <alwaysOn>true</alwaysOn>
+    </plugin>
+  </gazebo>
+</robot>
